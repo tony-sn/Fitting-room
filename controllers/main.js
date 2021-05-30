@@ -1,10 +1,40 @@
 $(document).ready(() => {
   let callData = new CallData();
 
+  const renderHTML = () => {
+    callData
+      .getListData()
+      .done((result) => {
+        console.log(result.navPills);
+        console.log(result.tabPanes);
+        let contentNavPills = "";
+        let contentTabPanes = "";
+        result.navPills.forEach((item, index) => {
+          let activeClass = item.tabName === "tabTopClothes" ? "active" : "";
+          let fadeClass = item.tabName !== "tabTopClothes" ? "fade" : "";
+
+          contentNavPills += getElmTabPill(item, activeClass);
+          contentTabPanes += `
+          <div class ="tab-pane container ${fadeClass} ${activeClass}" id="${
+            item.tabName
+          }">
+            <div class="row">
+              ${renderTabPane(item.tabName, result.tabPanes)}
+            </div>
+          </div>
+          `;
+        });
+
+        $(".nav-pills").html(contentNavPills);
+        $(".tab-content").html(contentTabPanes);
+      })
+      .fail((err) => console.log(err));
+  };
+
   const getElmTabPill = (item, activeClass) => {
     return `
     <li class ="nav-item">
-      <a class ="nav-link ${activeClass} btn-default" data-toggle="pill" href="${item.tabName}">${item.showName}</a>   
+      <a class ="nav-link ${activeClass} btn-default" data-toggle="pill" href="${item.tabName}">${item.showName}</a>
     </li>
     `;
   };
@@ -12,7 +42,6 @@ $(document).ready(() => {
   const getTypeArr = (tabType, data) => {
     let tempArr = [];
     data.forEach((item) => {
-      console.log("item", item);
       if (item.type === tabType) {
         tempArr.push(item);
       }
@@ -21,15 +50,15 @@ $(document).ready(() => {
   };
 
   const getElmItem = (tempArr) => {
-    var elmItem = "";
-    tempArr.forEach((item) => {
+    let elmItem = "";
+    tempArr.forEach(function (item) {
       elmItem += `
       <div class="col-md-3">
         <div class="card text-center">
         <img src="${item.imgSrc_jpg}">
         <h4><b>${item.name}</b></h4>
         <button>Change</button>
-        </div> 
+        </div>
       </div>
       `;
     });
@@ -80,35 +109,6 @@ $(document).ready(() => {
         break;
     }
     return elmItem;
-  };
-
-  const renderHTML = () => {
-    callData
-      .getListData()
-      .done((result) => {
-        console.log(result.navPills);
-        let contentNavPills = "";
-        let contentTabPanes = "";
-        result.navPills.forEach((item, index) => {
-          let activeClass = item.tabName === "tabTopClothes" ? "active" : "";
-          let fadeClass = item.tabName !== "tabTopClothes" ? "fade" : "";
-
-          contentNavPills += getElmTabPill(item, activeClass);
-          contentTabPanes += `
-          <div class ="tab-pane container ${fadeClass} ${activeClass}" id="${
-            item.tabName
-          }">
-            <div class="row">
-              ${renderTabPane(item.tabName, item.tabPanes)}
-            </div>          
-          </div>
-          `;
-        });
-
-        $(".nav-pills").html(contentNavPills);
-        $(".tab-content").html(contentTabPanes);
-      })
-      .fail((err) => console.log(err));
   };
 
   renderHTML();
