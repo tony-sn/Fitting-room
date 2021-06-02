@@ -5,8 +5,6 @@ $(document).ready(() => {
     callData
       .getListData()
       .done((result) => {
-        console.log(result.navPills);
-        console.log(result.tabPanes);
         let contentNavPills = "";
         let contentTabPanes = "";
         result.navPills.forEach((item, index) => {
