@@ -31,6 +31,8 @@ $(document).ready(() => {
       .fail((err) => console.log(err));
   };
 
+  renderHTML();
+
   const getElmTabPill = (item, activeClass) => {
     return `
     <li class ="nav-item">
@@ -57,7 +59,7 @@ $(document).ready(() => {
         <div class="card text-center">
         <img src="${item.imgSrc_jpg}">
         <h4><b>${item.name}</b></h4>
-        <button class="changeStyle">Change</button>
+        <button data-id="${item.id}" data-type="${item.type}" data-name="${item.name}" data-desc="${item.desc}" data-imgsrcjpg="${item.imgSrc_jpg}" data-imgsrcpng="${item.imgSrc_png}" class="changeStyle">Change</button>
         </div>
       </div>
       `;
@@ -111,5 +113,15 @@ $(document).ready(() => {
     return elmItem;
   };
 
-  renderHTML();
+  $("body").delegate("changeStyle", "click", function () {
+    let id = $(this).data("id");
+    let type = $(this).data("type");
+    let name = $(this).data("name");
+    let desc = $(this).data("desc");
+    let imgSrc_jpg = $(this).data("imgsrcjpg");
+    let imgSrc_png = $(this).data("imgsrcpng");
+
+    let choseItem = new ChoseItem(id, type, name, desc, imgSrc_jpg, imgSrc_png);
+    console.log("choseItem", choseItem);
+  });
 });
