@@ -34,7 +34,7 @@ $(document).ready(() => {
   const getElmTabPill = (item, activeClass) => {
     return `
     <li class ="nav-item">
-      <a class ="nav-link ${activeClass} btn-default" data-toggle="pill" href="${item.tabName}">${item.showName}</a>
+      <a class ="nav-link ${activeClass} btn-default" data-toggle="pill" href="#${item.tabName}">${item.showName}</a>
     </li>
     `;
   };
@@ -57,7 +57,7 @@ $(document).ready(() => {
         <div class="card text-center">
         <img src="${item.imgSrc_jpg}">
         <h4><b>${item.name}</b></h4>
-        <button>Change</button>
+        <button class="changeStyle">Change</button>
         </div>
       </div>
       `;
