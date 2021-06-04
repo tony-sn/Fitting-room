@@ -1,5 +1,6 @@
 $(document).ready(() => {
   let callData = new CallData();
+  let listChosen = new ListChosen();
 
   const renderHTML = () => {
     callData
@@ -94,12 +95,9 @@ $(document).ready(() => {
         elmItem = getElmItem(tempArr);
         break;
 
-      case "tabHairStype":
+      case "tabHairStyle":
         tempArr = getTypeArr("hairstyle", arrayTabPane);
         elmItem = getElmItem(tempArr);
-        break;
-
-      case "tabBotClothes":
         break;
 
       default:
@@ -111,7 +109,20 @@ $(document).ready(() => {
     return elmItem;
   };
 
-  $("body").delegate("changeStyle", "click", function () {
+  const findIndex = (type) => {
+    let index = -1;
+
+    if (listChosen.arr && listChosen.arr.length > 0) {
+      listChosen.arr.forEach((item, i) => {
+        if (item.type === type) {
+          index = i;
+        }
+      });
+    }
+    return index;
+  };
+
+  $("body").delegate(".changeStyle", "click", function () {
     let id = $(this).data("id");
     let type = $(this).data("type");
     let name = $(this).data("name");
@@ -120,6 +131,131 @@ $(document).ready(() => {
     let imgSrc_png = $(this).data("imgsrcpng");
 
     let choseItem = new ChoseItem(id, type, name, desc, imgSrc_jpg, imgSrc_png);
-    console.log("choseItem", choseItem);
+
+    let index = findIndex(choseItem.type);
+    if (index !== -1) {
+      listChosen.arr[index] = choseItem;
+    } else listChosen.addItem(choseItem);
+
+    renderContain(listChosen.arr);
   });
+
+  function renderContain(chosenItems) {
+    if (chosenItems && chosenItems.length > 0) {
+      console.log(chosenItems);
+      chosenItems.forEach((item) => {
+        switch (item.type) {
+          case "topclothes":
+            renderBikiniTop(item.imgsrc_png);
+            break;
+
+          case "botclothes":
+            renderBikiniBot(item.imgsrc_png);
+            break;
+
+          case "shoes":
+            renderShoes(item.imgsrc_png);
+            break;
+
+          case "handbags":
+            renderHandbags(item.imgsrc_png);
+            break;
+
+          case "necklaces":
+            renderNecklaces(item.imgsrc_png);
+            break;
+
+          case "hairstyle":
+            renderHairStyle(item.imgsrc_png);
+            break;
+
+          default:
+            renderBackground(item.imgsrc_png);
+            break;
+        }
+      });
+    }
+  }
+
+  function renderBikiniTop(img) {
+    $(".bikinitop").css({
+      width: "500px",
+      height: "500px",
+      background: `url(${img})`,
+      position: "absolute",
+      top: "-9%",
+      left: "-5%",
+      zIndex: "3",
+      transform: "scale(0.5)",
+    });
+  }
+
+  function renderBikiniBot(img) {
+    $(".bikinibottom").css({
+      width: "500px",
+      height: "1000px",
+      background: `url(${img})`,
+      position: "absolute",
+      top: "-30%",
+      left: "-5%",
+      zIndex: "2",
+      transform: "scale(0.5)",
+    });
+  }
+
+  function renderShoes(img) {
+    $(".feet").css({
+      width: "500px",
+      height: "1000px",
+      background: `url(${img})`,
+      position: "absolute",
+      bottom: "-37%",
+      right: "-3.5%",
+      zIndex: "1",
+      transform: "scale(0.5)",
+    });
+  }
+  function renderHandbags(img) {
+    $(".handbag").css({
+      width: "500px",
+      height: "1000px",
+      background: `url(${img})`,
+      position: "absolute",
+      bottom: "-40%",
+      right: "-3.5%",
+      zIndex: "4",
+      transform: "scale(0.5)",
+    });
+  }
+
+  function renderNecklaces(img) {
+    $(".necklace").css({
+      width: "500px",
+      height: "1000px",
+      background: `url(${img})`,
+      position: "absolute",
+      bottom: "-40%",
+      right: "-3.5%",
+      zIndex: "4",
+      transform: "scale(0.5)",
+    });
+  }
+  function renderHairStyle(img) {
+    $(".hairstyle").css({
+      width: "1000px",
+      height: "1000px",
+      background: `url(${img})`,
+      position: "absolute",
+      top: "-75%",
+      right: "-57%",
+      zIndex: "4",
+      transform: "scale(0.15)",
+    });
+  }
+
+  function renderBackground(img) {
+    $(".background").css({
+      backgroundImage: `url(${img})`,
+    });
+  }
 });
