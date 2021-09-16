@@ -1,16 +1,16 @@
 {
   "navPills": [
-    { "tabName": "tabTopClothes", "showName": "Áo", "type": "topclothes" },
-    { "tabName": "tabBotClothes", "showName": "Quần", "type": "botclothes" },
-    { "tabName": "tabShoes", "showName": "Giày dép", "type": "shoes" },
-    { "tabName": "tabHandBags", "showName": "Túi xách", "type": "handbags" },
+    { "tabName": "tabTopClothes", "showName": "Top", "type": "topclothes" },
+    { "tabName": "tabBotClothes", "showName": "Bottom", "type": "botclothes" },
+    { "tabName": "tabShoes", "showName": "Shoes", "type": "shoes" },
+    { "tabName": "tabHandBags", "showName": "Handbags", "type": "handbags" },
     {
       "tabName": "tabNecklaces",
-      "showName": "Dây chuyền",
+      "showName": "Necklaces",
       "type": "necklaces"
     },
-    { "tabName": "tabHairStyle", "showName": "Kiểu tóc", "type": "hairstyle" },
-    { "tabName": "tabBackground", "showName": "Nền", "type": "background" }
+    { "tabName": "tabHairStyle", "showName": "Hair Style", "type": "hairstyle" },
+    { "tabName": "tabBackground", "showName": "Background", "type": "background" }
   ],
   "tabPanes": [
     {
